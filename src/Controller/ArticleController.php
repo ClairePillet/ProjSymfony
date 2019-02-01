@@ -42,10 +42,10 @@ class ArticleController  extends AbstractController
         if ($article->getSlug() === 'khaaaaaan') {
             $slack->sendMessage('Kahn', 'Ah, Kirk, my old friend...');
         }
-        $comments = $article->getComment();
+        $comments = $article->getNonDeletedComments();
         return $this->render('article/show.html.twig', [
             'article' => $article,
-            'comments' => $comments,
+
         ]);
 
     }

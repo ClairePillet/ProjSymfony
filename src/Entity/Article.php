@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Repository\CommentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -72,11 +73,11 @@ class Article
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="Article")
      * @ORM\OrderBy({"createdAt" = "DESC"})
      */
-    private $Comment;
+    private $comment;
 
     public function __construct()
     {
-        $this->Comment = new ArrayCollection();
+        $this->comment = new ArrayCollection();
     }
 
     public function getId()
@@ -204,13 +205,13 @@ class Article
      */
     public function getComment(): Collection
     {
-        return $this->Comment;
+        return $this->comment;
     }
 
     public function addComment(Comment $comment): self
     {
-        if (!$this->Comment->contains($comment)) {
-            $this->Comment[] = $comment;
+        if (!$this->comment->contains($comment)) {
+            $this->comment[] = $comment;
             $comment->setArticle($this);
         }
 
@@ -219,8 +220,8 @@ class Article
 
     public function removeComment(Comment $comment): self
     {
-        if ($this->Comment->contains($comment)) {
-            $this->Comment->removeElement($comment);
+        if ($this->comment->contains($comment)) {
+            $this->comment->removeElement($comment);
             // set the owning side to null (unless already changed)
             if ($comment->getArticle() === $this) {
                 $comment->setArticle(null);
@@ -235,7 +236,7 @@ class Article
     public function getNonDeletedComments(): Collection
     {
         $criteria = CommentRepository::createNonDeletedCriteria();
-        return $this->comments->matching($criteria);
+        return $this->comment->matching($criteria);
 
     }
 }

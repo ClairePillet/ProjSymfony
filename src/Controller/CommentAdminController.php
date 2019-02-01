@@ -1,14 +1,11 @@
 <?php
-
 namespace App\Controller;
-
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-
-class CommentAdminController extends AbstractController
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+class CommentAdminController extends Controller
 {
     /**
-     * @Route("/comment/admin", name="comment_admin")
+     * @Route("/admin/comment", name="comment_admin")
      */
     public function index()
     {
