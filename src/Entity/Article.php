@@ -234,14 +234,8 @@ class Article
      */
     public function getNonDeletedComments(): Collection
     {
-        $comments = [];
+        $criteria = CommentRepository::createNonDeletedCriteria();
+        return $this->comments->matching($criteria);
 
-        foreach ($this->getComment() as $comment) {
-            if (!$comment->getIsDeleted()) {
-                $comments[] = $comment;
-            }
-        }
-
-        return new ArrayCollection($comments);
     }
 }

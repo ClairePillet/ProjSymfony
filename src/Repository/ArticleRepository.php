@@ -22,14 +22,7 @@ class ArticleRepository extends ServiceEntityRepository
     // /**
     //  * @return Article[] Returns an array of Article objects
     //  */
-    public function findAllPublishedOrderedByNewest()
-    {
-        return $this->addIsPublishedQueryBuilder()
-            ->orderBy('a.publishedAt', 'DESC')
-            ->getQuery()
-            ->getResult()
-            ;
-    }
+
     private function addIsPublishedQueryBuilder(QueryBuilder $qb = null)
     {
         return $this->getOrCreateQueryBuilder($qb)
@@ -38,6 +31,17 @@ class ArticleRepository extends ServiceEntityRepository
     private function getOrCreateQueryBuilder(QueryBuilder $qb = null)
     {
         return $qb ?: $this->createQueryBuilder('a');
+    }
+    public function findAllPublishedOrderedByNewest()
+    {
+        $this->createQueryBuilder('a')
+            ->addCriteria(CommentRepository::createNonDeletedCriteria());
+
+        return $this->addIsPublishedQueryBuilder()
+            ->orderBy('a.publishedAt', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
     }
     /*
     public function findOneBySomeField($value): ?Article
