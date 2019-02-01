@@ -1,15 +1,29 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Claire
- * Date: 31/01/2019
- * Time: 14:29
- */
 
 namespace App\Controller;
 
+use App\Entity\Article;
+use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
-class ArticleAdminController
+class ArticleAdminController extends AbstractController
 {
+    /**
+     * @Route("/admin/article/new")
+     */
+    public function new(EntityManagerInterface $em)
+    {
+        die('todo');
+        return new Response(sprintf(
+            'Hiya! New Article id: #%d slug: %s',
+            $article->getId(),
+            $article->getSlug()
+        ));
+    }
+
 
 }
